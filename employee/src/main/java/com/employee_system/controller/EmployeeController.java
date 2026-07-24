@@ -45,6 +45,18 @@ public class EmployeeController {
        Employee deleteEmployee= employeeService.deleteEmployeeById(id);
         return ResponseEntity.ok(new ApiResponse("Employee deleted  successfully",deleteEmployee));
     }
+    
+    //Employee
+    @GetMapping("/name/{name}")
+    public ResponseEntity<ApiResponse> searchEmployeeByName(@PathVariable String name){
+        List<Employee> result = employeeService.searchByName(name);
+        return ResponseEntity.ok(new ApiResponse("Employee successfully",result));
+    }
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<ApiResponse> searchByDepartment(@PathVariable int departmentId){
+        List<Employee> result = employeeService.searchByDepartment(departmentId);
+        return ResponseEntity.ok(new ApiResponse("Employee ID successfully",result));
+    }
 
 
 
