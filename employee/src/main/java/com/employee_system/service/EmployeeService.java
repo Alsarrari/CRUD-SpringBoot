@@ -46,21 +46,29 @@ public class EmployeeService {
         }
         throw new EmployeeNotFoundException("Employee not found ");
     }
-    public Employee searchByNAme(String name){
+    public List<Employee>  searchByName(String name){
+        List<Employee> employees1=new ArrayList<>();
         for (Employee e : employees){
             if (e.getName().equals(name)){
-                return e;
+                employees1.add(e);
             }
         }
+        if (employees1.isEmpty()){
+            throw new EmployeeNotFoundException("Employee not found");
+        }
+        return employees1;
+    }
+    public List<Employee> searchByDepartment(int departmentId){
+        List<Employee> employees1=new ArrayList<>();
+        for (Employee e : employees){
+            if (e.getDepartmentId()==departmentId){
+                employees1.add(e);
+            }
+        }
+        if (employees1.isEmpty()){
         throw new EmployeeNotFoundException("Employee not found");
     }
-    public Employee searchByDepartment(int department){
-        for (Employee e : employees){
-            if (e.getDepartmentId()==department){
-                return e;
-            }
-        }
-        throw new EmployeeNotFoundException("Employee not found");
+        return employees1;
     }
     public Employee searchBySalaryGreaterThan(int salary){
         for (Employee e : employees){
