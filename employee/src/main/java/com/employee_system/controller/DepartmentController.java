@@ -45,4 +45,21 @@ public class DepartmentController {
        Department department= departmentService.deleteDepartmentById(id);
         return ResponseEntity.ok(new ApiResponse("Department deleted successfully",department));
     }
+    
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse> getDepartmentByName(@RequestParam String name){
+        List<Department> result =departmentService.getDepartmentByName(name);
+        return ResponseEntity.ok(new ApiResponse("Department Name successfully",result));
+    }
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse> getDepartmentByLocation(@RequestParam String location){
+       List<Department> result=departmentService.getDepartmentByLocation(location);
+       return ResponseEntity.ok(new ApiResponse("Department location successfully",result));
+    }
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse> SearchDepartmentByManagerName(@RequestParam String managerName){
+        List<Department> result=departmentService.SearchDepartmentByManagerName(managerName);
+        return ResponseEntity.ok(new ApiResponse("Department managerName successfully",result));
+    }
+
 }
