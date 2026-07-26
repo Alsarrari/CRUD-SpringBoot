@@ -70,29 +70,100 @@ public class EmployeeService {
     }
         return employees1;
     }
-    public Employee searchBySalaryGreaterThan(int salary){
+   
+public List<Employee> searchBySalaryGreaterThan(int salary){
+        List<Employee> result=new ArrayList<>();
         for (Employee e : employees){
-            if (e.getSalary()>=10000){
-                return e;
+            if (e.getSalary()>=salary){
+                result.add(e);
             }
         }
-        throw new EmployeeNotFoundException("Employee not found");
+        if (result.isEmpty()){
+            throw new EmployeeNotFoundException("Employee not found");
+        }
+       return result;
     }
-    public Employee searchBetweenAges(int age){
+    public List<Employee> searchBetweenAges(int minAge , int maxAge){
+        List<Employee> result=new ArrayList<>();
         for (Employee e : employees){
-            if (e.getAge()>=20 && e.getAge()<=30){
-                return e;
+            if (e.getAge()>=minAge && e.getAge()<=maxAge){
+                result.add(e);
             }
         }
-        throw new EmployeeNotFoundException("Employee not found");
+        if (result.isEmpty()){
+            throw new EmployeeNotFoundException("Employee not found");
+        }
+      return result;
     }
-    public Employee searchByPosition(int department){
+    public List<Employee> searchByPosition(String position){
+        List<Employee> result=new ArrayList<>();
     for (Employee e : employees){
-        if (e.getDepartmentId()==department){
-            return e;
+        if (e.getPosition().equals(position)){
+            result.add(e);
         }
     }
-    throw new EmployeeNotFoundException("Employee not found");
+    if (result.isEmpty()){
+        throw new EmployeeNotFoundException("Employee not found");
+    }
+   return result;
+    }
+    public Employee increaseSalary(int id , double percentage){
+        for (Employee e : employees){
+            if (e.getId()==id){
+              double increase  = e.getSalary()*percentage/100;
+              e.setSalary(e.getSalary()+increase);
+              return e;
+            }
+        }
+        throw new EmployeeNotFoundException("Employee not found");
+    }
+    public Employee DecreaseEmployeeSalary(int id , double percentage){
+        for (Employee e : employees){
+            if (e.getId()==id){
+                double discount = e.getSalary()*percentage%100;
+                e.setSalary(e.getSalary()-discount);
+                return e;
+            }
+        }
+        throw new EmployeeNotFoundException("Employee not found");
+    }
+    public Employee transferEmployee(int employeeId, int departmentId) {
+
+        for (Employee e : employees) {
+
+            if (e.getId() == employeeId) {
+
+                e.setDepartmentId(departmentId);
+
+                return e;
+            }
+        }
+
+        throw new EmployeeNotFoundException("Employee not found");
+    }
+    public Employee highestSalary() {
+        if (employees.isEmpty()) {
+            throw new EmployeeNotFoundException("Employees not found");
+        }
+        Employee highest = employees.get(0);
+        for (Employee e : employees) {
+            if (e.getSalary() > highest.getSalary()) {
+                highest = e;
+            }
+        }
+        return highest;
+    }
+    public Employee lowestSalary(){
+        if (employees.isEmpty()){
+            throw new EmployeeNotFoundException("Employees not found");
+        }
+        Employee lowest = employees.get(0);
+        for (Employee e : employees){
+            if (e.getSalary()< lowest.getSalary()){
+                lowest=e;
+            }
+        }
+        return lowest;
     }
 
 
