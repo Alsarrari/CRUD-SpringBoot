@@ -46,6 +46,7 @@ public class EmployeeController {
         return ResponseEntity.ok(new ApiResponse("Employee deleted  successfully",deleteEmployee));
     }
     
+   
     //Employee
     @GetMapping("/name/{name}")
     public ResponseEntity<ApiResponse> searchEmployeeByName(@PathVariable String name){
@@ -57,6 +58,53 @@ public class EmployeeController {
         List<Employee> result = employeeService.searchByDepartment(departmentId);
         return ResponseEntity.ok(new ApiResponse("Employee ID successfully",result));
     }
+    @GetMapping("/salary")
+    public ResponseEntity<ApiResponse> searchBySalaryGreaterThan(@RequestParam int  salary){
+        List<Employee> result = employeeService.searchBySalaryGreaterThan(salary);
+        return ResponseEntity.ok(new ApiResponse("Employee Salary successfully",result));
+    }
+    @GetMapping("/age")
+    public ResponseEntity<ApiResponse> searchBetweenAges(@RequestParam int minAge,@RequestParam int maxAge){
+        List<Employee> result=employeeService.searchBetweenAges(minAge, maxAge);
+        return ResponseEntity.ok(new ApiResponse("Employee Age successfully ",result));
+    }
+    @GetMapping("/position")
+    public ResponseEntity<ApiResponse> searchByPosition(@PathVariable String position ){
+        List<Employee> result=employeeService.searchByPosition(position);
+        return ResponseEntity.ok(new ApiResponse("Employee position successfully",result));
+    }
+    @PutMapping("/{id}/increase")
+    public ResponseEntity<ApiResponse> increaseSalary(@PathVariable int id, @RequestParam double increase ){
+    Employee result=employeeService.increaseSalary(id, increase);
+    return ResponseEntity.ok(new ApiResponse("Employee increase successfully",result));
+    }
+    @PutMapping("/{id}/discount")
+    public ResponseEntity<ApiResponse> DecreaseEmployeeSalary(@PathVariable int id,@RequestParam double percentage){
+        Employee result=employeeService.DecreaseEmployeeSalary(id, percentage);
+        return ResponseEntity.ok(new ApiResponse("Employee discount successfully",result));
+    }
+    @PutMapping("/{employeeId}/transfer")
+    public ResponseEntity<ApiResponse> transferEmployee(@PathVariable int employeeId,@RequestParam int department){
+     Employee result =employeeService.transferEmployee(employeeId, department);
+     return ResponseEntity.ok(new ApiResponse("Employee transfer successfully",result));
+    }
+    @GetMapping("/highest-salary")
+    public ResponseEntity<ApiResponse> highestSalary() {
+
+        Employee result = employeeService.highestSalary();
+
+        return ResponseEntity.ok(
+                new ApiResponse("Highest salary employee", result));
+    }
+    @GetMapping("/lowest-salary")
+    public ResponseEntity<ApiResponse> lowestSalary() {
+        Employee result = employeeService.lowestSalary();
+        return ResponseEntity.ok(
+                new ApiResponse("Lowest salary employee", result));
+    }
+
+
+
 
 
 
