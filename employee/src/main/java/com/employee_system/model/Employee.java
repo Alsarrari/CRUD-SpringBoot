@@ -21,4 +21,5 @@ public class Employee {
     private String email;
     @NotNull
     private int departmentId;
+    private String Position;
 }
