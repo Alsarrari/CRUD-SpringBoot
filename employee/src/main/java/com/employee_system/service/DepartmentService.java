@@ -45,30 +45,40 @@ public class DepartmentService {
         }
         throw new DepartmentNotFoundException("Department not found");
     }
-    public Department getDepartmentByName( String name){
-        for (Department d : departments){
-            if (d.getName().equals(name)){
-                return d;
+  public List<Department> getDepartmentByName(String name) {
+        List<Department> dep =new ArrayList<>();
+        for (Department d : departments) {
+            if (d.getName().equalsIgnoreCase(name)) {
+                dep.add(d);
             }
         }
-        throw new DepartmentNotFoundException("Department not found");
+        if (dep.isEmpty()) {
+            throw new DepartmentNotFoundException("Department Name not found");
+        }
+        return dep;
     }
-    public Department getCountDepartment(int count){
+    public List<Department> getDepartmentByLocation(String location){
+        List<Department> dep =new ArrayList<>();
         for (Department d : departments){
-            if (d.getId()==count){
-                return d;
+            if (d.getLocation().equalsIgnoreCase(location)){
+                dep.add(d);
             }
         }
-        throw new DepartmentNotFoundException("Department not found");
+        if (dep.isEmpty()){
+            throw new DepartmentNotFoundException("Department Location not found");
+        }
+        return dep;
     }
-
-    public Department getRenameDepartment(String department){
+    public List<Department>  SearchDepartmentByManagerName(String managerName){
+        List<Department> dep =new ArrayList<>();
         for (Department d : departments){
-            if (d.getId()== d.getId()){
-                return d;
+            if (d.getManagerName().equalsIgnoreCase(managerName)){
+                dep.add(d);
             }
         }
-        throw new DepartmentNotFoundException("Department not found");
+        if (dep.isEmpty()){
+            throw new DepartmentNotFoundException("Department managerName not found");
+        }
+        return dep;
     }
-
 }
